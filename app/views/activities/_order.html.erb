@@ -1,0 +1,37 @@
+
+
+<%= link_to "清空" , "#order_table" , :class => 'btn' , :id=>"clear_order" %>
+
+
+<% new_item = @activity.items.build %>
+
+<%= form_for([@activity, new_item ]) do |f| %>
+	<table class="table table-striped" name="order_table">
+	  <tr>
+	    <th>品名</th>
+	    <th>糖冰</th>
+	    <th>Size</th>
+	    <th>金額</th>
+	    <th>簽名</th>
+	    <th></th>
+	  </tr>
+	  <tr id="order">
+	    <td class="attr"><%= f.text_field :name  , :class=>"span3" %></td>
+	    <td class="attr"><%= f.text_field :sugar , :class=>"span1" %>糖<%= f.text_field :ice  , :class=>"span1" %>冰</td>
+	    <td class="attr"><%= f.text_field :size ,  :class=>"span1" %></td>
+	    <td class="attr"><%= f.number_field :price ,:step=>5 , :min=>0 , :class=>"span2" %></td>
+	    <td class="attr"><%= f.text_field :sign   , :class=>"span2" %></td>
+	    <td><%= f.submit "送出" , :class => 'btn btn-primary' %></td>
+	  </tr>
+	</table>
+<% end %>
+
+
+<script type = "text/javascript">
+
+	$("#clear_order").click(function() {
+		fill_order_table('<%= new_item.name %>','<%= new_item.ice %>','<%= new_item.sugar %>','<%= new_item.size %>','<%= new_item.price %>');
+		$("#item_name").focus();
+	});
+
+</script>

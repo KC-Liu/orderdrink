@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>☑ Order Drink</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+	<div id='header' class="btn-toolbar">
+		<div  class="btn-group">
+			<%= link_to "找最新", root_path , :class=>"btn btn-large btn-success"%></div>
+		<div  class="btn-group">
+	  		<%= link_to "訂購記錄", activities_path , :class=>"btn btn-large" %></div>
+	  	<div  class="btn-group">
+	  		<%= link_to "封面圖庫", images_path , :class=>"btn btn-large" %></div>
+	</div>
+
+	<div id="content">
+		<%= yield %>
+	</div>
+	<div id="footer" class="progress ">
+		<div class="bar bar-success" style="width: 100%;">
+			Copyleft Ⓚ 2013 orderdrink.org
+		</div>
+	</div>
+
+</body>
+</html>
+
+<script type = "text/javascript">
+	jQuery(function() {
+	  $("a.fancybox").fancybox();
+	});
+</script>

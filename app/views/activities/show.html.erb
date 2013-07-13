@@ -1,0 +1,60 @@
+<%- model_class = Activity -%>
+<div class="page-header">
+  <h3><%= @activity.subject %></h3>
+</div>
+
+<dl class="dl-horizontal">
+  <dt></dt>
+  <dd>
+  	<% if  @activity.hyperlink.present? %>
+	  	<%= link_to @activity.hyperlink ,:target=>"blank" , :title=>"Menu" do %>
+	  		<%= image_tag @activity.album_image_path %><br>menu點我
+	  	<% end %> 
+	 <% else %>
+	 	<div><%= image_tag @activity.album_image_path %></div>
+	 <% end %> 
+  </dd>
+</dl>
+
+<div class="page-header">
+  <h4><%= (@activity.is_over)?("已結束"):("開團中..") %></h4>
+</div>
+
+<div class="form-actions">
+	<% if @activity.is_over %>
+		<%= link_to t('.back', :default => t("helpers.links.back")),
+	              activities_path, :class => 'btn'  %>
+	<% else %>
+		<%= link_to t('.edit', :default => t("helpers.links.edit")),
+	              edit_activity_path(@activity), :class => 'btn' %>
+	<% end %>
+</div>
+
+<hr>
+<div id="list" style="background-color:#FFFFF0;" >
+	<h2>訂單</h2>
+	<%= render 'list' %>
+</div>
+<hr>
+
+
+<div id="order" style="background-color:#EBEBEB;" >
+<% unless @activity.is_over %>
+	<h2>我要訂</h2>
+		<%= render 'order'  %>
+<% end %>
+</div>
+
+
+<script type = "text/javascript">
+
+  function fill_order_table(name,ice,sugar,size,price)
+  {
+  	$("#item_name").val(name);
+  	$("#item_ice").val(ice);
+  	$("#item_sugar").val(sugar);
+  	$("#item_size").val(size);
+  	$("#item_price").val(price);
+  }
+
+</script>

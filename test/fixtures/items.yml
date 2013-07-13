@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  sugar: MyString
+  ice: MyString
+  sign: MyString
+  activity: 
+
+two:
+  name: MyString
+  sugar: MyString
+  ice: MyString
+  sign: MyString
+  activity: 

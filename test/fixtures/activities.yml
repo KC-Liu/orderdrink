@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  subject: MyString
+  shift_date: 2013-07-06
+  album: MyString
+  is_over: false
+
+two:
+  subject: MyString
+  shift_date: 2013-07-06
+  album: MyString
+  is_over: false

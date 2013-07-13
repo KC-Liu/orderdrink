@@ -1,0 +1,38 @@
+
+<div class="tabbable"> 
+	
+  <ul class="nav nav-tabs">
+    <li class="active">
+    	<a href="#tab_boy" data-toggle="tab">男生</a>
+    </li>
+    <li>
+    	<a href="#tab_girl" data-toggle="tab">女生</a>
+    </li>
+  </ul>
+
+  <div class="tab-content">
+
+    <div class="tab-pane active" id="tab_boy">
+	      <ul class="thumbnails">
+	      	<% @boys.shuffle.each do |image| %>
+	      		<li class="span3">
+	      			<%=link_to image_tag(image) , url_for("assets/#{image}") ,:class=>"fancybox" %>
+		  		</li>
+	      	<% end %>
+		  </ul>
+    </div>
+
+    <div class="tab-pane" id="tab_girl">
+	       <ul class="thumbnails">
+	      	 <% @girls.shuffle.each do |image| %>
+	      		<li class="span3">
+	      			<%=link_to image_tag(image) , url_for("assets/#{image}") ,:class=>"fancybox" %>
+		  		</li>
+	      	<% end %>
+		  </ul>
+    </div>
+
+  </div>
+
+</div>
+

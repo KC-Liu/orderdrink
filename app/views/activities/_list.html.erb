@@ -1,0 +1,74 @@
+<table class="table table-striped">
+  <tr>
+  	<th></th>
+    <th>品名</th>
+    <th>Size</th>
+    <th>糖冰</th>
+    <th>數量</th>
+    <th>金額</th>
+    <th></th>
+  </tr>
+
+    <% @activity.items.sort_by{|i| i.name}.group_by(&:absolute_catagory).each do | catagory , items | %>
+	<% first_item = items[0] %>
+	<tr>
+		<td>
+			<% unless @activity.is_over %>
+				<%= link_to "+1", "#order_table" , :class => 'btn plus_one' ,:onclick=>"fill_order_table('#{first_item.name}','#{first_item.ice}','#{first_item.sugar}','#{first_item.size}','#{first_item.price}');$('#item_sign').focus();" %>
+			<% end %>
+		</td>
+		<td><%= first_item.name %></td>
+		<td><%= first_item.size %></td>
+		<td><%= ice_sugar_tag(first_item.ice,first_item.sugar) %></td>
+		<td>X<%= items.size.to_i %></td>
+		<td><%= items.sum{|i| i.price.to_i} %>$</td>
+		<td>
+
+			<% items.each_index do |i| %>
+			<% item = items[i] %>
+
+			<%= content_tag(:br) if i%4==0 && i>0 %>
+
+				<% item_string = (item.sign.blank?)?('沒簽名'):item.sign %>
+				<% item_string+= "(#{item.price}$)"%>
+				
+					<% if @activity.is_over %>
+						<% if item.payup %>
+
+							<span class="badge"><%= item_string %></span>
+							
+						<% else %>
+
+							<span class="badge badge-warning">
+							<%= link_to item_string , 
+								{:controller=>'items',:action=>'update',:id=>item}, 
+								confirm: "#{item.sign} 已付 #{item.price}$ ?" %>
+							</span>
+
+						<% end %>
+					<% else %>
+
+						<span class="badge badge-warning">
+							<%= link_to item_string , 
+								{:controller=>'items',:action=>'destroy',:id=>item}, 
+								confirm: '清除重填?', 
+								method: :delete %>
+						</span>
+
+					<% end %>
+
+			<% end %>
+		</td>
+  	</tr>
+   <% end %>
+   <tr style="color:red">
+   		<td></td>
+		<td><b>加總</b></td>
+		<td></td>
+		<td></td>
+		<td><b>X<%= @activity.items.size.to_i %></b></td>
+		<td><b><%= @activity.items.sum{|i| i.price.to_i} %>$</b></td>
+		<td></td>
+  	</tr>
+
+</table>

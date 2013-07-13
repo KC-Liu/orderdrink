@@ -1,0 +1,51 @@
+
+<div class="page-header">
+  <h1><%=t '.title', :default =>t("helpers.actions") %></h1>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+    <th>主題</th>
+    <th></th>
+    <th>時間</th>
+    <th>狀態</th>
+    <th></th>
+    <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @activities.each do |activity| %>
+      <tr>
+        <td><%= link_to t('.title', :default =>truncate(activity.subject,length:40 )), activity , :title=>activity.subject %></td>
+        <td>
+            <ul class="thumbnails">
+              <li class="span1">
+                 <%= image_tag activity.album_image_path %>
+              </li>
+          </ul>
+      </td>
+        <td><%= activity.created_at.strftime('%Y/%m/%d %H:%M') %></td>
+        <td><%= (activity.is_over)?('已結束'):('開團中') %></td>
+        <% if activity.is_over %>
+          <td></td>
+        <% else %>
+          <td>
+            <%= link_to t('.edit', :default =>t("helpers.links.edit")),
+                          edit_activity_path(activity), :class => 'btn ' %>
+          </td>
+        <% end %>
+        <td>
+            <%= link_to t('.destroy', :default =>t("helpers.links.destroy")),
+                      activity_path(activity),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?'  )) },
+                      :class => 'btn btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= will_paginate @activities , renderer: BootstrapPagination::Rails, :class=>"pagination pagination-centered " ,:previous_label=>"&laquo;" , :next_label=>"&raquo;" %>
+
+<%= render 'activities/new' %>
